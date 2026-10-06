@@ -1,0 +1,7 @@
+# Archive up to 25 products by ID. Reversible write. Requires reviewer approval.
+mutation ArchiveProducts($products: [ArchiveProductInput!]!) {
+  archiveProducts(products: $products) {
+    archived skipped
+    products { id name archived openOrders { id } }
+  }
+}

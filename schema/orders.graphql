@@ -1,0 +1,10 @@
+type Query {
+  "Open orders containing a product. Used by the products service before writes."
+  openOrdersForProduct(productId: ID!): [Order!]! @permission(scopes: ["orders:read"])
+}
+type Product @key(fields: "id") {
+  id: ID!
+  "Cross-domain relationship: products referenced by orders that are still open."
+  openOrders: [Order!]! @permission(scopes: ["orders:read"]) @docs(url: "/docs/products.md")
+}
+type Order { id: ID! status: String! variantIds: [ID!]! }

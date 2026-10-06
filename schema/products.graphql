@@ -1,0 +1,50 @@
+type Query {
+  "Search products and services by name. Read-only. Use before product cleanup."
+  searchOfferings(input: SearchInput!): OfferingConnection!
+    @permission(scopes: ["products:read"]) @skill(name: "products") @docs(url: "/docs/products.md")
+  "Products only. Same input, smaller door. Includes archived products for verification."
+  searchProducts(input: SearchInput!): ProductConnection!
+    @permission(scopes: ["products:read"]) @skill(name: "products")
+}
+input SearchInput {
+  "Case-insensitive substring; empty string lists everything."
+  nameContains: String!
+  types: [OfferingType!]
+  collectionId: ID
+}
+enum OfferingType { PRODUCT SERVICE }
+type OfferingConnection { nodes: [Offering!]! }
+type ProductConnection { nodes: [Product!]! }
+union Offering = Product | Service
+type Product @key(fields: "id") {
+  id: ID!
+  name: String!
+  collectionId: ID!
+  archived: Boolean!
+  "Sizes and colors. Price lives here, never on the product."
+  variants: [ProductVariant!]!
+}
+type ProductVariant { id: ID! sku: String! price: Int! }
+"Work such as installation. Distinct from a physical product and its variants."
+type Service { id: ID! name: String! collectionId: ID! }
+input ArchiveProductInput {
+  id: ID!
+  reason: String!
+}
+type ArchivePayload {
+  archived: Int!
+  skipped: Int!
+  "Successfully archived products; orders fields can be fetched through federation."
+  products: [Product!]!
+}
+type DeletePayload { deleted: Int! }
+type Mutation {
+  "Archive up to 25 products. Reversible write. Never archive products in open orders. Partial success is explicit."
+  archiveProducts(products: [ArchiveProductInput!]!): ArchivePayload!
+    @permission(scopes: ["products:write"])
+    @requiresApproval @docs(url: "/docs/products.md") @skill(name: "products")
+  "Permanent deletion. Admin only. Product cleanup should always use archive instead."
+  deleteProducts(ids: [ID!]!): DeletePayload!
+    @permission(scopes: ["products:delete"], reason: "admin only")
+    @requiresApproval @docs(url: "/docs/products.md") @skill(name: "products")
+}

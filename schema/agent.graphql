@@ -1,0 +1,13 @@
+extend schema
+  @link(url: "https://specs.apollo.dev/federation/v2.3", import: ["@key", "@composeDirective"])
+  @link(url: "https://example.com/agent/v1.0", import: ["@permission", "@requiresApproval", "@docs", "@skill"])
+  @composeDirective(name: "@permission")
+  @composeDirective(name: "@requiresApproval")
+  @composeDirective(name: "@docs")
+  @composeDirective(name: "@skill")
+
+# Demo policy directive: evaluated by our plugin, not Router-native authorization.
+directive @permission(scopes: [String!]!, reason: String) on FIELD_DEFINITION
+directive @requiresApproval on FIELD_DEFINITION
+directive @docs(url: String!) on FIELD_DEFINITION
+directive @skill(name: String!) on FIELD_DEFINITION

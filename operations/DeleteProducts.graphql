@@ -1,0 +1,4 @@
+# Permanent deletion. Admin only. Never use for cleanup.
+mutation DeleteProducts($ids: [ID!]!) {
+  deleteProducts(ids: $ids) { deleted }
+}

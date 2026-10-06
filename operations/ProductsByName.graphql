@@ -1,0 +1,14 @@
+# Find products and services by name. Read-only. Use before cleanup.
+query ProductsByName($term: String!, $collection: ID! = "DEMO") {
+  searchOfferings(input: { nameContains: $term, collectionId: $collection }) {
+    nodes {
+      __typename
+      ... on Product {
+        id name archived
+        variants { id sku price }
+        openOrders { id status }
+      }
+      ... on Service { id name }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+# Dry-run comparison only; no operations are executed with the dry-run header.
+mutation ComparePermissions($products: [ArchiveProductInput!]!, $ids: [ID!]!) {
+  archiveProducts(products: $products) { archived skipped }
+  deleteProducts(ids: $ids) { deleted }
+}

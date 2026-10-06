@@ -1,0 +1,26 @@
+{
+  "name": "apollo-summit-2026-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/main.js",
+    "test": "node --test test/*.test.js",
+    "demo": "node src/walkthrough.js",
+    "compose": "node src/compose.js"
+  },
+  "dependencies": {
+    "@apollo/composition": "2.14.4",
+    "@apollo/federation-internals": "2.14.4",
+    "@apollo/gateway": "2.14.4",
+    "@apollo/query-planner": "2.14.4",
+    "@apollo/server": "5.5.1",
+    "@apollo/subgraph": "2.15.1",
+    "@as-integrations/express5": "1.1.2",
+    "express": "5.2.1",
+    "graphql": "16.14.2"
+  }
+}

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Your graph is a company model · Apollo Summit 2026</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header><div><span class="eyebrow">APOLLO SUMMIT 2026 · PARTS 02 + 03</span><h1>Your graph is a company model<span>.</span></h1><p>Look first. Ask the reviewer. Make the result legible.</p></div><button id="reset" class="quiet">Reset demo data</button></header>
+  <section class="architecture" aria-label="Architecture"><span>AGENT / EXPLORER</span><b>→</b><span class="accent">GATEWAY + PLUGINS</span><b>→</b><span>PRODUCTS</span><span>ORDERS</span><span>APPROVALS</span><small>Real federation · local demo identities</small></section>
+  <main>
+    <aside>
+      <span class="eyebrow">THE WALKTHROUGH</span>
+      <button class="scenario active" data-scenario="ProductsByName"><i>01</i><span>Find the duplicates<small>One operation, two domains</small></span></button>
+      <button class="scenario" data-scenario="ComparePermissions"><i>02</i><span>See which door is open<small>Archive allowed. Delete denied.</small></span></button>
+      <button class="scenario" data-scenario="ArchiveProducts"><i>03</i><span>Preview the write<small>Permissions, approval, docs, skill</small></span></button>
+      <div class="guide"><span class="eyebrow">THEN TRY</span><p>Execute without approval. Request approval, inspect the approval preview below, approve, then execute again.</p><p>Two products archive. The third stays active because it is in an open order.</p><a href="/skills/products/SKILL.md" target="_blank">Read the products skill ↗</a></div>
+      <div class="stats"><span class="eyebrow">SUBGRAPH REQUESTS</span><pre id="stats"></pre><small>A dry run leaves these unchanged.</small></div>
+    </aside>
+    <section class="workspace">
+      <div class="toolbar"><label>Operation<select id="operation"></select></label><label>Acting as<select id="caller"><option>editor</option><option>admin</option><option>viewer</option></select></label></div>
+      <label for="document" class="eyebrow">DOCUMENT</label><textarea id="document" spellcheck="false" aria-label="GraphQL operation"></textarea>
+      <label for="variables" class="eyebrow">VARIABLES</label><textarea id="variables" spellcheck="false" aria-label="Operation variables"></textarea>
+      <div class="actions"><button id="dry-run">Dry run</button><button id="execute" class="quiet">Execute</button><button id="request-approval" class="quiet">Request approval</button></div>
+      <p id="notice" role="status">Select an operation, then look before you move.</p>
+      <details id="reviewer"><summary>Reviewer approval <span id="approval-status">No pending request</span></summary><p>The reviewer inspects the exact document and variables. Approval expires after five minutes and authorizes one execution by this caller.</p><pre id="preview">Request approval to create a preview.</pre><div class="actions"><button id="approve" disabled>Reviewer: approve</button><button id="deny" class="quiet" disabled>Reviewer: decline</button></div><small>This panel simulates a separate reviewer session as the demo admin.</small></details>
+    </section>
+    <section class="result"><div class="result-title"><span class="eyebrow">THE GRAPH ANSWERS</span><span id="result-tag">READY</span></div><nav aria-label="Response view"><button data-view="full" class="selected">Response</button><button data-view="meta">Metadata</button><button data-view="plan">Query plan</button></nav><pre id="output" aria-live="polite">// Run an operation to inspect its response.
+// Dry run: Apollo-Expose-Query-Plan: dry-run
+// Approval: x-approval: &lt;one-time token&gt;</pre></section>
+  </main>
+  <footer>Fictional product data. No external business API, GraphOS credentials, or model API required. <a href="/docs/products.md">Demo notes ↗</a></footer>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+scalar JSON
+type Query {
+  "Read your approval request. Token appears only after a separate reviewer decision."
+  approval(id: ID!): ApprovalRequest @permission(scopes: ["products:write"])
+}
+type Mutation {
+  "Request a reviewer preview for an exact document and variables. This does not approve or execute it."
+  requestApproval(document: String!, variables: JSON!, operationName: String): ApprovalRequest!
+    @permission(scopes: ["products:write"]) @docs(url: "/docs/approvals.md")
+}
+type ApprovalRequest {
+  id: ID!
+  status: String!
+  preview: JSON!
+  token: String
+  expiresAt: String!
+}
