@@ -1,5 +1,7 @@
 # Your graph is a company model
 
+[View the talk slides](https://2026-apollo-summit-graphql-company-model.pages.dev/)
+
 A generic product-management demo for Apollo Summit 2026: three Apollo Federation
 subgraphs and gateway plugins that make permissions, approvals, and errors
 discoverable through the graph. All products, orders, and identities are fictional.
